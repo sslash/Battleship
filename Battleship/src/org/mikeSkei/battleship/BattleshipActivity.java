@@ -138,6 +138,16 @@ public class BattleshipActivity extends Activity {
 				}
 
 		}
+		
+		
+		private void printToast (String msg) {
+			Context context = getApplicationContext();
+			
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, msg, duration);
+			toast.show();
+		}
 
 		@Override
 		public boolean onTouchEvent(MotionEvent event) {
@@ -146,10 +156,16 @@ public class BattleshipActivity extends Activity {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
 					if (boatPicked) {
+						
+						CharSequence text = "Pressed square! width = " + event.getX()
+						+ " height = " + event.getY();
+						printToast("came in!!!");
+						
 						GraphicObject gObj = getPressedObject(event.getX(),
 								event.getY());
 						
 						if ( gObj != null ){
+							
 							gObj._bitmap = BitmapFactory.decodeResource(
 									getResources(), R.drawable.boat2);
 							//boatPressed = null;
@@ -172,13 +188,7 @@ public class BattleshipActivity extends Activity {
 							boatPicked = true;
 						}
 
-						Context context = getApplicationContext();
-						CharSequence text = "width = " + event.getX()
-								+ " height = " + event.getY();
-						int duration = Toast.LENGTH_LONG;
-
-						Toast toast = Toast.makeText(context, text, duration);
-						toast.show();
+						
 					}
 
 					/*
@@ -226,9 +236,6 @@ public class BattleshipActivity extends Activity {
 
 		@Override
 		public void onDraw(Canvas canvas) {
-
-			// canvas.drawColor(R.drawable.background);
-
 			Bitmap _scratch = BitmapFactory.decodeResource(getResources(),
 					R.drawable.background);
 			canvas.drawBitmap(_scratch, 0, 0, null);
